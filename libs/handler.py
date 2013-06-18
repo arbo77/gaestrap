@@ -22,7 +22,7 @@ from libs import dicts
 config = {}
 
 config['webapp2_extras.sessions'] = {
-	'cookie_name'	: 'agendamusik-token',
+	'cookie_name'	: 'gaestrap-token',
     'secret_key'	: 'e23e6286ba3fa450d65e779a35086736',
 }
 
@@ -41,8 +41,9 @@ class SessionHandler(webapp2.RequestHandler):
 		return self.session_store.get_session()
 		
 
-class BaseHandler(SessionHandler):
+class BaseHandler(SessionHandler):		
 	def show_page(self):
-		dicts.page["page"]["title"] = "Hello, world!"
-		html = template.render("tpl/index.html",dicts.page)
+		html = template.render(
+						"tpl/%s.html"% (dicts.template),
+					  dicts.page)
 		self.response.write(html)
